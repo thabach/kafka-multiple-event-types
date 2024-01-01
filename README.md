@@ -7,8 +7,8 @@ Both JSON-encoded events as well as AVRO/binary-encoded events are illustrated, 
 Avro: 
 ```
 [
-  "io.confluent.developer.avro.Purchase",
-  "io.confluent.developer.avro.PageView"
+  "io.doubledispatch.kafka.multiple_event_types.avro.Purchase",
+  "io.doubledispatch.kafka.multiple_event_types.avro.PageView"
 ]
 ```
 
