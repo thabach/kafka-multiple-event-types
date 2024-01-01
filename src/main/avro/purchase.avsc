@@ -1,6 +1,6 @@
 {
   "type":"record",
-  "namespace": "io.confluent.developer.avro",
+  "namespace": "io.doubledispatch.kafka.multiple_event_types.avro",
   "name":"Purchase",
   "fields": [
     {"name": "item", "type":"string"},

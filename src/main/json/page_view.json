@@ -3,7 +3,7 @@
   "title": "Customer Page View Event",
   "description": "A JSON schema PageView object",
   "type": "object",
-  "javaTypeName": "io.confluent.developer.json.PageView",
+  "javaTypeName": "io.doubledispatch.kafka.multiple_event_types.json.PageView",
   "properties": {
     "url": {
       "type": "string"
