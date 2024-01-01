@@ -1,0 +1,38 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.1'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id "com.github.davidmc24.gradle.plugin.avro" version "1.9.1"
+	id 'com.github.eirnym.js2p' version '1.0'
+}
+
+group = 'io.doubledispatch'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '18'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.apache.avro:avro:1.11.3'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jsonSchema2Pojo {
+    targetPackage = 'io.doubledispatch.kafka.multiple_event_types.json'
+    generateBuilders = true
+    annotationStyle = "JACKSON2"
+    source = files("${project.projectDir}/src/main/json")
+    targetDirectory = file("${project.buildDir}/generated-main-json-java")
+    includeJsr303Annotations = false
+    propertyWordDelimiters = ['_'] as char[]
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
