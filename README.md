@@ -36,16 +36,16 @@ Start Kafka, the Confluent Schema-Registry and Redpanda Console Docker container
 ```
 docker-compose up
 ```
-Wait for all the containers to be started, for http://localhost:8080 to show the Redpanda Console.
+Wait for all the containers to have started...
 
 ### Register Schemas and Create Topics
 ```
 ./gradlew registerSchemaTask
 ./gradlew createTopics
 ```
-Have an inside view of your environment with either
+Have an inside view of your environment with either:
 * Kafka Magic at http://localhost:8088 and configure the broker-address:`broker:9092` and the schema-registry url: `http://schema-registry:8081`.
-* or Redpanda at http://localhost:8080.
+* or the Redpanda Console at http://localhost:8080.
 
 ## Running the example
 
@@ -59,8 +59,8 @@ Have an inside view of your environment with either
 ```
 ### Enjoy the results:
 ```
-[Avro] Found an Avro embedded Purchase event {"item": "flux-capacitor", "amount": 437.83, "customer_id": "vandelay1234"} 
-[Avro] Found an embedded PageView event {"url": "https://acme.commerce/sale", "is_special": true, "customer_id": "vandelay1234"} 
+[Avro] Found a Purchase event {"item": "flux-capacitor", "amount": 437.83, "customer_id": "vandelay1234"} 
+[Avro] Found a PageView event {"url": "https://acme.commerce/sale", "is_special": true, "customer_id": "vandelay1234"} 
 [JSON Schema] Found a Purchase event io.doubledispatch.kafka.multiple_event_types.json.Purchase@6fd5717c[item=flux-capa...
 [JSON Schema] Found a PageView event io.doubledispatch.kafka.multiple_event_types.json.PageView@7e2f86e6[url=https://acme.commerce/sale,...
 ```

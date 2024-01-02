@@ -77,10 +77,10 @@ public class MultiEventConsumer {
     private static void handleAvroRecord(final SpecificRecord avroRecord) {
         if (avroRecord instanceof io.doubledispatch.kafka.multiple_event_types.avro.PageView) {
             io.doubledispatch.kafka.multiple_event_types.avro.PageView pageView = (io.doubledispatch.kafka.multiple_event_types.avro.PageView) avroRecord;
-            System.out.printf("[Avro] Found an embedded PageView event %s %n", pageView);
+            System.out.printf("[Avro] Found a PageView event %s %n", pageView);
         } else if (avroRecord instanceof io.doubledispatch.kafka.multiple_event_types.avro.Purchase) {
             io.doubledispatch.kafka.multiple_event_types.avro.Purchase purchase = (io.doubledispatch.kafka.multiple_event_types.avro.Purchase) avroRecord;
-            System.out.printf("[Avro] Found an Avro embedded Purchase event %s %n", purchase);
+            System.out.printf("[Avro] Found a Purchase event %s %n", purchase);
         } else {
             throw new IllegalStateException(String.format("Unrecognized type %s %n", avroRecord.getSchema().getFullName()));
         }
