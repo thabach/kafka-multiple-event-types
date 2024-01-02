@@ -15,7 +15,8 @@ public class KafkaTopicsCreator {
         }
         var adminProps = PropertiesLoader.load(args[0]);
 
-        var topicNames = List.of("avro-events-wrapped", "avro-events", "proto-events", "json-events", "output");
+        //var topicNames = List.of("avro-events-wrapped", "avro-events", "proto-events", "json-events", "output");
+        var topicNames = List.of("avro-events", "json-events", "output");
         try (Admin admin = Admin.create(adminProps)) {
             var newTopicsList = topicNames.stream()
                     .map(name -> new NewTopic(name, 1, (short) 1))

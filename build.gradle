@@ -1,9 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.1'
-	id 'io.spring.dependency-management' version '1.1.4'
 	id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.12.0"
-	//id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.1.1"
 	id "com.github.davidmc24.gradle.plugin.avro" version "1.9.1"
 	id 'com.github.eirnym.js2p' version '1.0'
 }
@@ -11,19 +8,32 @@ plugins {
 group = 'io.doubledispatch'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	sourceCompatibility = '18'
+repositories {
+    mavenCentral()
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
 }
 
-repositories {
-	mavenCentral()
+java {
+	sourceCompatibility = '17'
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.apache.avro:avro:1.11.3'
-	implementation 'org.apache.kafka:kafka-streams:3.4.0'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+    implementation 'org.apache.kafka:kafka-streams:3.4.0'
+    implementation 'io.confluent:kafka-streams-avro-serde:7.4.0'
+    implementation 'io.confluent:kafka-streams-json-schema-serde:7.4.0'
+
+    implementation "io.confluent:kafka-avro-serializer:7.4.0"
+    implementation "io.confluent:kafka-json-schema-serializer:7.4.0"
+
+    implementation "org.apache.logging.log4j:log4j-api:2.12.4"
+    implementation 'org.apache.logging.log4j:log4j-core:2.12.4'
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:2.12.4"
+
+	implementation 'org.slf4j:slf4j-simple:2.0.10'
 }
 
 jsonSchema2Pojo {
@@ -58,7 +68,7 @@ schemaRegistry {
     }
 */
 
-    // Possible types are ["JSON", "PROTOBUF", "AVRO"]
+    // Possible types are ["JSON", "AVRO"]
     register {
         subject('page-view', 'src/main/avro/page_view.avsc', 'AVRO')
         subject('purchase', 'src/main/avro/purchase.avsc', 'AVRO')
@@ -79,4 +89,22 @@ task createTopics(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'io.doubledispatch.kafka.utils.KafkaTopicsCreator'
     args 'src/main/resources/config.properties'
+}
+
+task runProducer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'io.doubledispatch.kafka.multiple_event_types.DataProducer'
+    args  'src/main/resources/config.properties'
+}
+
+task runKafkaStreamsExample(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'io.confluent.developer.streams.MultiEventKafkaStreamsExample'
+    args  'src/main/resources/config.properties'
+}
+
+task runConsumer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'io.doubledispatch.kafka.multiple_event_types.MultiEventConsumer'
+    args  'src/main/resources/config.properties'
 }

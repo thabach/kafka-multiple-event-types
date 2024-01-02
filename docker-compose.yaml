@@ -52,4 +52,15 @@ services:
               urls: ["http://schema-registry:8081"]
       ports:
       - 8080:8080
+
+  magic:
+    image: digitsy/kafka-magic
+    ports:
+      - "8088:80"
+    depends_on:
+      - broker
+      - schema-registry
+    environment:
+      KMAGIC_ALLOW_TOPIC_DELETE: "true"
+      KMAGIC_ALLOW_SCHEMA_DELETE: "true"
     
