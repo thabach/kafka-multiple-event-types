@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.1'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.12.0"
+	//id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.1.1"
 	id "com.github.davidmc24.gradle.plugin.avro" version "1.9.1"
 	id 'com.github.eirnym.js2p' version '1.0'
 }
@@ -36,6 +38,41 @@ jsonSchema2Pojo {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+schemaRegistry {
+    def props = new Properties()
+    file("src/main/resources/config.properties").withInputStream {props.load(it)}
+    def srUrl = props.getProperty("schema.registry.url")
+    //def auth =  props.getProperty("basic.auth.user.info").split(":")
+    //println "Using Schema Registry endpoint:${srUrl}, username:${auth[0]},password:${auth[1]}"
+    println "Using Schema Registry endpoint:${srUrl}"
+
+    url = srUrl
+/*
+    credentials {
+        // username is the characters up to the ':' in the basic.auth.user.info property
+        username = auth[0]
+        // password is everything after ':' in the basic.auth.user.info property
+        password = auth[1]
+    }
+*/
+
+    // Possible types are ["JSON", "PROTOBUF", "AVRO"]
+    register {
+        subject('page-view', 'src/main/avro/page_view.avsc', 'AVRO')
+        subject('purchase', 'src/main/avro/purchase.avsc', 'AVRO')
+        subject('avro-events-value', 'src/main/avro/all_events.avsc', 'AVRO')
+                .addReference("io.doubledispatch.kafka.multiple_event_types.avro.PageView", "page-view", 1)
+                .addReference("io.doubledispatch.kafka.multiple_event_types.avro.Purchase", "purchase", 1)
+
+        subject('json-page-view', 'src/main/json/page_view.json', 'JSON')
+        subject('json-purchase', 'src/main/json/purchase.json', 'JSON')
+        subject('json-events-value', 'src/main/json/all_events.json', 'JSON')
+                .addReference("page_view.json", "json-page-view", 1)
+                .addReference("purchase.json", "json-purchase", 1)
+    }
+
 }
 
 task createTopics(type: JavaExec) {
