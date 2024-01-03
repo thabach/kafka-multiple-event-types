@@ -64,7 +64,7 @@ Have an inside view of your environment with either:
 [JSON Schema] Found a Purchase event io.doubledispatch.kafka.multiple_event_types.json.Purchase@6fd5717c[item=flux-capa...
 [JSON Schema] Found a PageView event io.doubledispatch.kafka.multiple_event_types.json.PageView@7e2f86e6[url=https://acme.commerce/sale,...
 ```
-## Further Reading
+## Sources and Further Reading
 
 * [Should You Put Several Event Types in the Same Kafka Topic?](https://www.confluent.io/blog/put-several-event-types-kafka-topic/) - Blog post by Martin Kleppmann
 * [Putting Several Event Types in the Same Topic – Revisited](https://www.confluent.io/blog/multiple-event-types-in-the-same-kafka-topic/) - Blog post by Robert Yokota
