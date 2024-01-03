@@ -32,7 +32,7 @@ JSONSchema:
 
 ### Start environment
 
-Start Kafka, the Confluent Schema-Registry and Redpanda Console Docker containers by running:
+Start Kafka, the Confluent Schema-Registry and two alternative Kafka-WebUI (Kafka Magic and Redpanda Console) Docker containers by running:
 ```
 docker-compose up
 ```
