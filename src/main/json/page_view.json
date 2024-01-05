@@ -15,5 +15,6 @@
       "type": "string"
     }
   },
+  "required": ["url", "is_special"],
   "additionalProperties": false
 }

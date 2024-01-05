@@ -15,5 +15,5 @@
       "type": "string"
     }
   },
-  "additionalProperties": false
+  "required": ["item", "amount", "customer_id"]
 }
