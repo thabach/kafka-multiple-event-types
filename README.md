@@ -18,7 +18,6 @@ JSONSchema:
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Schema references",
   "description": "List of schema references for multiple types in a single topic",
-  "type" : "object",
   "oneOf": [
     { "$ref": "page_view.json" },
     { "$ref": "purchase.json"}
