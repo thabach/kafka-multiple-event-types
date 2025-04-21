@@ -23,7 +23,7 @@ public class PageEventHandler implements EventHandler<PageEventHolder> {
         } else {
             logger.info(String.format("Unrecognized type %s %n", record.getSchema().getFullName()));
         }
-        Thread.sleep(30_000);
+        Thread.sleep(20_000);
         event.getAcknowledgment().acknowledge();; 
     } 
 
