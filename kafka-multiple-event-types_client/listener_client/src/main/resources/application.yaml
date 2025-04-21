@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: listener_client
+  config:
+    import:
+      - kafka.yaml
+topic:
+  avro: "avro-events"
